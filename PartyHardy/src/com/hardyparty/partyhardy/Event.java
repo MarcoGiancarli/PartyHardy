@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -14,8 +16,7 @@ public class Event implements Parcelable {
 	private String description;
 	private Calendar startTime;
 	private Calendar endTime;
-	private double latitude;
-	private double longitude;
+	private LatLng latLng;
 	
 	public static String[] months = {
 	        "Jan",
@@ -120,18 +121,11 @@ public class Event implements Parcelable {
 		description = newDescription;
 	}
 	
-	public double getLongitude() {
-		return longitude;
+	public LatLng getLatLng() {
+		return latLng;
 	}
-	public void setLongitude(double newLong) {
-		longitude = newLong;
-	}
-	
-	public double getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(double newLat) {
-		latitude = newLat;
+	public void setLatLng(LatLng newLatLng) {
+		latLng = newLatLng;
 	}
 	
 	@Override

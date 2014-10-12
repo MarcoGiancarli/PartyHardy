@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import com.google.android.gms.maps.MapFragment;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
@@ -14,15 +13,27 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.PushService;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -53,13 +64,16 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Eve
 	private GroupsTabFragment groupsTabFragment;
 	private MapFragment mapFragment;
 	private EventListFragment eventListFragment;
-	private EventDetailFragment eventDetailFragment;
 	
 	// List of events currently loaded from Parse
 	private ArrayList<Event> events;
 	
 	// Temporary list used for loading objects from parse
 	private List<ParseObject> objects;
+	
+	private GoogleMap googleMap;
+	private LocationManager locationManager;
+	private String provider;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +112,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Eve
 			actionBar.addTab(actionBar.newTab()
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
-		}				
+		}
 		
 		// Connect to Parse.
 		Parse.initialize(this, getString(R.string.parse_application_id), 
@@ -145,6 +159,11 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Eve
             e.printStackTrace();
         }
 	}
+	
+	@Override
+    public void onStart() {
+    	super.onStart();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -256,7 +275,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Eve
 
 		@Override
 		public int getCount() {
-			return 3;
+			return 2;
+//			return 3;  TODO: remove this after groups is implemented
 		}
 
 		@Override
