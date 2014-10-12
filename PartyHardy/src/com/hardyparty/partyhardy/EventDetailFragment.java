@@ -47,14 +47,12 @@ public class EventDetailFragment extends DialogFragment {
         View rootView = inflater.inflate(R.layout.fragment_event_detail, container, false);
         
 		if (event != null) {
-            ((TextView) rootView.findViewById(R.id.event_title))
+            ((TextView) rootView.findViewById(R.id.title))
             		.setText(event.getTitle());
-            ((TextView) rootView.findViewById(R.id.event_description))
+            ((TextView) rootView.findViewById(R.id.description))
             		.setText(event.getDescription());
-            ((TextView) rootView.findViewById(R.id.event_start_time))
-            		.setText(event.getStartTimeAsString());
-            ((TextView) rootView.findViewById(R.id.event_end_time))
-            		.setText(event.getEndTimeAsString());
+            ((TextView) rootView.findViewById(R.id.time))
+            		.setText(event.getStartTimeAsString()+" - "+event.getEndTimeAsString());
         }
 
         return rootView;
