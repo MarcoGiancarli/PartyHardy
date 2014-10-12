@@ -13,9 +13,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
  
-public class ListViewAdapter extends BaseAdapter {
+public class EventListViewAdapter extends BaseAdapter implements ListAdapter {
 	
     Context context;
     LayoutInflater inflater;
@@ -23,7 +24,7 @@ public class ListViewAdapter extends BaseAdapter {
     private List<Event> eventList = null;
     private ArrayList<Event> arraylist;
  
-    public ListViewAdapter(Context context,
+    public EventListViewAdapter(Context context,
             List<Event> eventList) {
         this.context = context;
         this.eventList = eventList;
