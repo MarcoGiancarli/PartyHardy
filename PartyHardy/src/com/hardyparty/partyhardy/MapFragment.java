@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -27,13 +28,14 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment {
 	String provider;
 	
 	// Default zoom level for map
-	public final int DEFAULT_MAP_ZOOM = 18;
+	public final int DEFAULT_MAP_ZOOM = 17;
 	
 	private ArrayList<Event> events;
-
-	public MapFragment() {
+	
+	public static MapFragment newInstance() {
+		return new MapFragment();
 	}
-
+	
 //	@Override
 //	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 //			Bundle savedInstanceState) {
@@ -42,8 +44,8 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment {
 //	}
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onStart() {
+		super.onStart();
 		int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity().getBaseContext());
         if(status!=ConnectionResult.SUCCESS) {
         	// Google Play Services are not available
@@ -52,9 +54,9 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment {
             dialog.show();
         } else {
         	// Google Play Services are available
-        	googleMap = getMap();
+        	googleMap = super.getMap();
             googleMap.setMyLocationEnabled(true);
-            locationManager = (LocationManager) getActivity().getSystemService(MainActivity.LOCATION_SERVICE);
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
             
             Criteria criteria = new Criteria();
             provider = locationManager.getBestProvider(criteria, true);
@@ -66,13 +68,16 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment {
             }
             
             // Get events
+            events = ((MainActivity)getActivity()).getEvents();
             
         	for(Event event : events) {
-	            // Place event as a marker on the map
-	            MarkerOptions options = new MarkerOptions()
-	            		.title(event.getTitle())
-	            		.position(event.getLatLng());
-	            googleMap.addMarker(options);
+        		if(event.getLatLng() != null) {
+	        			// Place event as a marker on the map
+		            MarkerOptions options = new MarkerOptions()
+		            		.title(event.getTitle())
+		            		.position(event.getLatLng());
+		            googleMap.addMarker(options);
+        		}
         	}
         }
 	}
