@@ -3,6 +3,12 @@
     tools:context="com.hardyparty.partyhardy.MainActivity" >
 
     <item
+        android:id="@+id/action_new"
+        android:orderInCategory="90"
+        android:title="@string/action_new"
+        android:icon="@drawable/ic_action_new"
+        android:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/action_search"
         android:orderInCategory="99"
         android:title="@string/action_search"

@@ -185,6 +185,17 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Eve
 			// launch search stuff -- check docs for adding search feature
 			return true;
 		}
+		if (id == R.id.action_new) {
+			/*
+			 *  TODO: Either make this button open up a dialog fragment that determines
+			 *  whether or not the new item is a group or an event, or instead make
+			 *  two unique actionbar buttons.
+			 */
+			// open new event activity
+			Intent newEventIntent = new Intent(this, NewEventActivity.class);
+	    	startActivity(newEventIntent);
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -242,7 +253,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Eve
 	    	detailIntent.putExtra(EventDetailFragment.ARG_EVENT, (Parcelable) event);
 	    	startActivity(detailIntent);
     	} else {
-    		// Deal with the error condition (no event for event detail page)
+    		// TODO: Deal with the error condition (no event for event detail page)
     	}
     }
 
