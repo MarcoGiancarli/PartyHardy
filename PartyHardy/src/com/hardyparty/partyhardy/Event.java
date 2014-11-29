@@ -17,6 +17,7 @@ public class Event implements Parcelable {
 	private Calendar startTime;
 	private Calendar endTime;
 	private LatLng latLng;
+	private String imageUrl;
 	
 	public static String[] months = {
 	        "Jan",
@@ -43,6 +44,7 @@ public class Event implements Parcelable {
 			return null;
 		}
 	}
+	
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -56,10 +58,12 @@ public class Event implements Parcelable {
 			return null;
 		}
 	}
+	
 	public void setStartTime(Date newTime) {
 		startTime = new GregorianCalendar();
 		startTime.setTime(newTime);
 	}
+	
 	public String getStartTimeAsString() {
 		if(startTime != null) {
 			String month = months[startTime.get(Calendar.MONTH)-1];
@@ -82,10 +86,12 @@ public class Event implements Parcelable {
 			return null;
 		}
 	}
+	
 	public void setEndTime(Date newTime) {
 		endTime = new GregorianCalendar();
 		endTime.setTime(newTime);
 	}
+	
 	public String getEndTimeAsString() {
 		if(endTime != null) {
 			String month = months[endTime.get(Calendar.MONTH)-1];
@@ -106,6 +112,7 @@ public class Event implements Parcelable {
 			return null;
 		}
 	}
+	
 	public void setTitle(String newTitle) {
 		title = newTitle;
 	}
@@ -117,6 +124,7 @@ public class Event implements Parcelable {
 			return null;
 		}
 	}
+	
 	public void setDescription(String newDescription) {
 		description = newDescription;
 	}
@@ -124,8 +132,17 @@ public class Event implements Parcelable {
 	public LatLng getLatLng() {
 		return latLng;
 	}
+	
 	public void setLatLng(LatLng newLatLng) {
 		latLng = newLatLng;
+	}
+	
+	public void setImageUrl(String url) {
+		imageUrl = url;
+	}
+	
+	public String getImageUrl() {
+		return imageUrl;
 	}
 	
 	@Override

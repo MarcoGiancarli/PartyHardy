@@ -91,10 +91,8 @@ public class EventListFragment extends ListFragment {
         
         events = ((MainActivity) getActivity()).getEvents();
         
-        setListAdapter(new ArrayAdapter<Event>(
+        setListAdapter(new EventListViewAdapter (
                 getActivity(),
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
                 events));
     }
 

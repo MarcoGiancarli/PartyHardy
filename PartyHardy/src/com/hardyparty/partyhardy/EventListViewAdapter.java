@@ -3,6 +3,8 @@ package com.hardyparty.partyhardy;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.android.gms.common.images.ImageManager;
+
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -20,7 +22,7 @@ public class EventListViewAdapter extends BaseAdapter implements ListAdapter {
 	
     Context context;
     LayoutInflater inflater;
-    //ImageLoader imageLoader;
+//    ImageLoader imageLoader;
     private List<Event> eventList = null;
     private ArrayList<Event> arraylist;
  
@@ -31,15 +33,14 @@ public class EventListViewAdapter extends BaseAdapter implements ListAdapter {
         inflater = LayoutInflater.from(context);
         this.arraylist = new ArrayList<Event>();
         this.arraylist.addAll(eventList);
-        //imageLoader = new ImageLoader(context);
+//        imageLoader = new ImageManager(context);
     }
  
     public class ViewHolder {
-        TextView title;
-        TextView description;
-        TextView startTime;
-        TextView endTime;
-        //ImageView image;
+        TextView titleText;
+        TextView lowerText;
+        TextView distance;
+//        ImageView image;
     }
  
     @Override
@@ -61,36 +62,35 @@ public class EventListViewAdapter extends BaseAdapter implements ListAdapter {
         final ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
-            view = inflater.inflate(R.layout.fragment_event_detail, null);
+            view = inflater.inflate(R.layout.event_list_item, null);
             // Locate the TextViews
-            holder.title = (TextView) view.findViewById(R.id.event_title);
-            holder.description = (TextView) view.findViewById(R.id.event_description);
-            holder.startTime = (TextView) view.findViewById(R.id.event_start_time);
-            holder.endTime = (TextView) view.findViewById(R.id.event_end_time);
+            holder.titleText = (TextView) view.findViewById(R.id.titleText);
+            holder.lowerText = (TextView) view.findViewById(R.id.lowerText);
+            holder.distance = (TextView) view.findViewById(R.id.distance);
             // Locate the ImageView
-            //holder.image = (ImageView) view.findViewById(R.id.image);
+//            holder.image = (ImageView) view.findViewById(R.id.image);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
         // Set the results into TextViews
-        holder.title.setText(eventList.get(position).getTitle());
-        holder.description.setText(eventList.get(position).getDescription());
-        holder.startTime.setText(eventList.get(position).getStartTime().toString());
-        holder.startTime.setText(eventList.get(position).getEndTime().toString());
+        holder.titleText.setText(eventList.get(position).getTitle());
+        holder.lowerText.setText(eventList.get(position).getStartTimeAsString()+" - "+
+        		eventList.get(position).getEndTimeAsString());
+        holder.distance.setText("1.2 mi"); //TODO: replace with real field or calculation
         // Set the results into ImageView
-        //imageLoader.DisplayImage(eventList.get(position).getImage(), holder.image);
+//        imageLoader.DisplayImage(eventList.get(position).getImage(), holder.image);
         // Listen for ListView Item Click
         view.setOnClickListener(new OnClickListener() {
- 
+        	
             @Override
             public void onClick(View view) {
                 // Send single item click data to single item view class
                 Intent intent = new Intent(context, EventDetailActivity.class);
-                intent.putExtra("title", eventList.get(position).getTitle());
-                intent.putExtra("description", eventList.get(position).getDescription());
-                intent.putExtra("startTime", eventList.get(position).getStartTime());
-                intent.putExtra("endTime", eventList.get(position).getEndTime());
+                intent.putExtra(EventDetailFragment.ARG_EVENT, eventList.get(position));
+//                intent.putExtra("description", eventList.get(position).getDescription());
+//                intent.putExtra("startTime", eventList.get(position).getStartTime());
+//                intent.putExtra("endTime", eventList.get(position).getEndTime());
                 context.startActivity(intent);
             }
         });
