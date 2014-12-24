@@ -25,4 +25,7 @@
     <string name="parse_master_key">coMMGMHO2okTH5L3ir1PeLXx4bem3X2ACx2gD3jj</string>
     <string name="google_maps_api_key">AIzaSyBzmXU6b9gB1IP0l_uno2OPaJ70x7xecaA</string>
 
+    <!-- DB Configuration -->
+    <string name="db_ip">54.173.22.142</string>
+    
 </resources>
