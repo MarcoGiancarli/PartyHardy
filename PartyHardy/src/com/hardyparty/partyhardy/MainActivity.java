@@ -62,6 +62,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Eve
 	// Save fragments
 	private GroupsTabFragment groupsTabFragment;
 	private MapFragment mapFragment;
+	private int MAP_TAB_POSITION = 1;
 	private EventListFragment eventListFragment;
 	
 	// List of events currently loaded from Parse
@@ -206,6 +207,9 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Eve
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
 		actionBar.setTitle(mSectionsPagerAdapter.getPageTitle(tab.getPosition()));
+		if(mViewPager.getCurrentItem() == MAP_TAB_POSITION) {
+			mapFragment.goToCurrentLocation();
+		}
 	}
 
 	@Override

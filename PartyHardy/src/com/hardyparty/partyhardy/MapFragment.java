@@ -99,4 +99,10 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment {
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(DEFAULT_MAP_ZOOM));
 	}
+	
+	public void goToCurrentLocation() {
+		// Use last known location by default
+		Location location = locationManager.getLastKnownLocation(provider);
+		goToCurrentLocation(location);
+	}
 }
