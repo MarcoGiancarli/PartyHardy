@@ -28,4 +28,7 @@
     <string name="title_activity_new_event_form">MainActivity</string>
     <string name="hello_world">Hello world!</string>
 
+    <!-- DB Configuration -->
+    <string name="db_ip">54.173.22.142</string>
+    
 </resources>
